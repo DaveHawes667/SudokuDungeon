@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BoolReference" load_steps=2 format=3 uid="uid://q7anul6t7v6m"]
+
+[ext_resource type="Script" uid="uid://dx4hi47su0sq4" path="res://scripts/references/float_reference.gd" id="1_7d1wo"]
+
+[resource]
+script = ExtResource("1_7d1wo")
+_value = false
