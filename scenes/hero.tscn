@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://bxif0cye7o1xj"]
 
-[ext_resource type="Script" path="res://scripts/heroes/hero_controller.gd" id="1_hero"]
+[ext_resource type="Script" uid="uid://dgjbfaym6nwfa" path="res://scripts/heroes/hero_controller.gd" id="1_hero"]
 
 [node name="Hero" type="Node2D"]
-script = ExtResource("1_hero") 
+script = ExtResource("1_hero")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 24
+collide_with_areas = true

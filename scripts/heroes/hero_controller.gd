@@ -1,9 +1,22 @@
 class_name HeroController extends EntityController
 
-var _is_dragging = false
-var _is_placed = false
 var _original_position: Vector2
 var _tilemap: TileMap
+var _path_points = []
+var _line2d: Line2D
+var _is_drawing = false
+var path_color = Color(1, 1, 0, 0.5)  # Yellow with transparency
+var move_time = 0.2
+
+enum HeroState {RESERVE, PICKED_UP, PLACED, DRAWING_PATH, MOVING}
+
+var _hero_state = HeroState.RESERVE
+
+@onready var _ray : RayCast2D = ScriptUtilities.find_child(self, "RayCast2D")
+
+func _getWorldPosFromMapPos(mapPos : Vector2i ):
+	var local_pos = _tilemap.map_to_local(mapPos)
+	return _tilemap.to_global(local_pos)	
 
 func _snapToTile(globalPos: Vector2):
 	var local_pos = _tilemap.to_local(globalPos)
@@ -16,40 +29,52 @@ func _ready():
 	_tilemap = get_node("/root/grid_movement_sample/TileMap")
 	_original_position = position
 
+	# Create Line2D for path visualization
+	_line2d = Line2D.new()
+	_line2d.default_color = path_color
+	_line2d.width = 1
+	_tilemap.add_child(_line2d)
+
+func IsUnderMouse():
+	var mouse_pos = get_global_mouse_position()
+	var collider_shape = _collider.shape as RectangleShape2D
+	var collider_rect = Rect2(
+		global_position - collider_shape.size/2,
+		collider_shape.size
+	)
+
+	return collider_rect.has_point(mouse_pos)
+
 func _input(event):
-	if _is_placed:
-		return
-		
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
-				# Get mouse position and check if it's over the hero sprite
-				var mouse_pos = get_global_mouse_position()
-				# Get the collider's shape and transform it to global coordinates
-				var collider_shape = _collider.shape as RectangleShape2D
-				var collider_rect = Rect2(
-					global_position - collider_shape.size/2,
-					collider_shape.size
-				)
-				
-				if not collider_rect.has_point(mouse_pos):
-					return
-				_start_drag()
-			else:
-				_end_drag()
-	elif event is InputEventMouseMotion and _is_dragging:
-		position = get_global_mouse_position()
+
+	var leftClickDown = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed
+	var leftClickUp = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed
+	var mouseMotion = event is InputEventMouseMotion
+
+	match _hero_state:
+		HeroState.RESERVE:
+			if IsUnderMouse() and leftClickDown:
+				_start_drag();				
+		HeroState.PICKED_UP:
+			if leftClickUp:
+				_end_drag();
+			elif mouseMotion:
+				position = get_global_mouse_position()
+		HeroState.PLACED:
+			if IsUnderMouse() and leftClickDown:
+				_start_drawing();
+		HeroState.DRAWING_PATH:
+			if leftClickUp:
+				_end_drawing();	
+			elif mouseMotion:
+				_update_path(event.position)
+	
 
 func _start_drag():
-	if not _is_placed:
-		_is_dragging = true
+	_original_position = position
+	_hero_state = HeroState.PICKED_UP
 
-func _end_drag():
-	if not _is_dragging:
-		return
-		
-	_is_dragging = false
-	
+func _end_drag():	
 	# Convert mouse position to grid position
 	var mouse_pos = get_global_mouse_position()
 	var local_pos = _tilemap.to_local(mouse_pos)
@@ -67,16 +92,74 @@ func _end_drag():
 	
 	if is_valid_entry:
 		# Snap to grid position
-		var world_pos = _snapToTile(map_pos)
-		position = world_pos
-		_is_placed = true
+		var world_pos = _getWorldPosFromMapPos(map_pos)
+		position = world_pos		
+		_hero_state = HeroState.PLACED
 	else:
 		# Return to original position
 		position = _original_position
+		_hero_state = HeroState.RESERVE
+
+func _start_drawing():
+	_hero_state = HeroState.DRAWING_PATH
+	_path_points.clear()
+	_line2d.clear_points()
+	# Add current position as first point
+	var snappedPos = _snapToTile(global_position)
+	_path_points.append(snappedPos)
+	_line2d.add_point(snappedPos)
+
+func _update_path(mouse_pos: Vector2):
+	if _hero_state != HeroState.DRAWING_PATH:
+		return
+	
+	var mouse_pos_ws = get_global_mouse_position()
+	# Convert mouse position to tile coordinates	
+	var tile_pos = _snapToTile(mouse_pos_ws)
+	
+	# Only add new point if it's on a different tile
+	if _path_points.size() == 0 or _path_points[-1].distance_to(tile_pos) > _tile_size*0.5:
+		_path_points.append(tile_pos)
+		_line2d.add_point(tile_pos)
+
+func _end_drawing():
+	_is_drawing = false
+	if _path_points.size() > 1:
+		_follow_path()
+
+func _follow_path():
+	_hero_state = HeroState.MOVING
+	# Follow each point in the path
+	for i in range(1, _path_points.size()):
+		var start_pos = _path_points[i-1]
+		var end_pos = _path_points[i]
+		var direction = (end_pos - start_pos).normalized()
+		
+		# Check if movement is valid
+		_ray.target_position = direction * _tile_size
+		_ray.force_raycast_update()
+		
+		if !_ray.is_colliding():
+			var tween = create_tween()
+			tween.tween_property(
+				self, "position",
+				end_pos,
+				move_time
+			).set_trans(Tween.TRANS_LINEAR)
+			await tween.finished
+		else:
+			# Stop if we hit something
+			break
+	
+	
+	_path_points.clear()
+	_line2d.clear_points()
 
 func _process(delta):
 	# Example of state changes based on movement
-	if Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left"):
+	if _hero_state == HeroState.MOVING:
 		set_state("walk")
 	else:
 		set_state("idle") 
+
+	

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://cyl5cjk4731wd" path="res://scripts/grid_generator.gd" id="7_gen"]
 [ext_resource type="Script" uid="uid://cslqk7471ao10" path="res://scripts/entities/entity_spawner.gd" id="8_spawner"]
 [ext_resource type="Script" uid="uid://s5sibq3prwkd" path="res://scripts/ui/hero_selection.gd" id="9_hero_sel"]
-[ext_resource type="PackedScene" path="res://scenes/hero.tscn" id="10_hero"]
+[ext_resource type="PackedScene" uid="uid://bxif0cye7o1xj" path="res://scenes/hero.tscn" id="10_hero"]
 [ext_resource type="Script" uid="uid://cmi63hlv6dpjf" path="res://scripts/ui/entry_point_indicator.gd" id="11_entry"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4ng34"]
