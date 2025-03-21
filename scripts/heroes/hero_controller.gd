@@ -67,7 +67,7 @@ func _input(event):
 			if leftClickUp:
 				_end_drawing();	
 			elif mouseMotion:
-				_update_path(event.position)
+				_update_path()
 	
 
 func _start_drag():
@@ -109,7 +109,7 @@ func _start_drawing():
 	_path_points.append(snappedPos)
 	_line2d.add_point(snappedPos)
 
-func _update_path(mouse_pos: Vector2):
+func _update_path():
 	if _hero_state != HeroState.DRAWING_PATH:
 		return
 	

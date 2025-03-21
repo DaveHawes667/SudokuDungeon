@@ -8,7 +8,7 @@ var _entity_data: Dictionary
 var _animations: Dictionary
 var _tile_size = 8  # Size of a tile in pixels
 var _collider: CollisionShape2D
-var sprite_scale_factor : float = 1.0
+var _sprite_scale_factor : float = 1.0
 
 func _ready():
 	_load_entity_data()
@@ -65,8 +65,8 @@ func _setup_sprite():
 	add_child(_sprite)
 	
 	# Scale the sprite to fit within a tile	
-	self.sprite_scale_factor = _tile_size/float(max(widest_frame, tallest_frame))
-	_sprite.scale = Vector2(self.sprite_scale_factor, self.sprite_scale_factor)
+	_sprite_scale_factor = _tile_size/float(max(widest_frame, tallest_frame))
+	_sprite.scale = Vector2(_sprite_scale_factor, _sprite_scale_factor)
 	
 	_sprite.play("idle")
 
@@ -89,7 +89,7 @@ func _setup_collider():
 	
 	# Create a rectangle shape based on the largest frame size
 	var shape = RectangleShape2D.new()
-	var scale_factor = self.sprite_scale_factor
+	var scale_factor = _sprite_scale_factor
 	shape.size = Vector2(largest_width * scale_factor, largest_height * scale_factor)
 	_collider.shape = shape
 
