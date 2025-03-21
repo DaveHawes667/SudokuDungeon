@@ -8,7 +8,7 @@ var _is_drawing = false
 var path_color = Color(1, 1, 0, 0.5)  # Yellow with transparency
 var move_time = 0.2
 
-enum HeroState {RESERVE, PICKED_UP, PLACED, DRAWING_PATH, MOVING}
+enum HeroState {RESERVE, PICKED_UP, PLACED, DRAWING_PATH, MOVING,FINISHED_MOVE}
 
 var _hero_state = HeroState.RESERVE
 
@@ -151,7 +151,7 @@ func _follow_path():
 			# Stop if we hit something
 			break
 	
-	
+	_hero_state = HeroState.FINISHED_MOVE
 	_path_points.clear()
 	_line2d.clear_points()
 
