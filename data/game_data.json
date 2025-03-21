@@ -3,7 +3,8 @@
         "episodes/episode1.json"
     ],
     "enemies": [
-        "enemies/goblin.json"
+        "enemies/goblin.json",
+		"enemies/orc.json"
     ],
     "heroes": [
         "heroes/knight.json"

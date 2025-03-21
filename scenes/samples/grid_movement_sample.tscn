@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bbo7b5vgtetx3"]
+[gd_scene load_steps=10 format=3 uid="uid://bbo7b5vgtetx3"]
 
 [ext_resource type="Texture2D" uid="uid://bs5ru4bg8n3bj" path="res://sprites/tilesets/test-tileset.png" id="1_uxx57"]
 [ext_resource type="Texture2D" uid="uid://ctuyqlhugsiwo" path="res://icon.svg" id="2_cg4w5"]
 [ext_resource type="Script" uid="uid://bwcbi8s46qrhf" path="res://scripts/movement/grid_controller.gd" id="2_tnplj"]
 [ext_resource type="Script" uid="uid://cnw4gf84a84ua" path="res://scripts/camera/camera_targeter.gd" id="4_8jsyy"]
 [ext_resource type="Script" uid="uid://cyl5cjk4731wd" path="res://scripts/grid_generator.gd" id="7_gen"]
+[ext_resource type="Script" uid="uid://bqqfbjk0lttfr" path="res://scripts/enemies/enemy_controller.gd" id="8_enemy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4ng34"]
 texture = ExtResource("1_uxx57")
@@ -66,3 +67,8 @@ camera = NodePath("..")
 min_zoom = 15.0
 max_zoom = 12.0
 targets = Array[NodePath]([NodePath("../../grid_player")])
+
+[node name="Enemy" type="Node2D" parent="."]
+position = Vector2(21, 15)
+script = ExtResource("8_enemy")
+enemy_id = "orc"
