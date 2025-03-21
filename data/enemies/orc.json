@@ -6,7 +6,7 @@
     "defense": 1,
     "movement_range": 1,
     "abilities": ["basic_attack"],
-    "sprite_folder": "orc1",
+    "sprite_folder": "enemies/orc1",
     "animations": {
         "idle": "Idle",
         "attack": "Dying",        

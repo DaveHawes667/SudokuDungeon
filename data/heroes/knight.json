@@ -11,10 +11,10 @@
     ],
     "sprite_folder": "heroes/knight",
     "animations": {
-        "idle": "Knight_idle/knight_idle_full",
-        "walk": "Knight_walk/knight_walk_full",
-        "attack": "Knight_attack/knight_attack_full",
-        "hurt": "Knight_hurt/knight_hurt_full",
-        "death": "Knight_death/knight_death_full"
+        "idle": "Idle",
+        "walk": "Walking",
+        "attack": "Attacking",
+        "hurt": "Hurt",
+        "death": "Dying"
     }
 } 

@@ -6,7 +6,7 @@
     "defense": 2,
     "movement_range": 0,
     "abilities": [],
-    "sprite_folder": "rock",
+    "sprite_folder": "Objects/rock",
     "animations": {
         "idle": "Rock_idle"
     }
