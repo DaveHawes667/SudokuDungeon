@@ -25,10 +25,14 @@ func _input(event):
 			if event.pressed:
 				# Get mouse position and check if it's over the hero sprite
 				var mouse_pos = get_global_mouse_position()
-				var sprite_rect = Rect2(_sprite.global_position - (_sprite.scale * Vector2(_tile_size/2.0, _tile_size/2.0)), 
-									  _sprite.scale * Vector2(_tile_size, _tile_size))
+				# Get the collider's shape and transform it to global coordinates
+				var collider_shape = _collider.shape as RectangleShape2D
+				var collider_rect = Rect2(
+					global_position - collider_shape.size/2,
+					collider_shape.size
+				)
 				
-				if not sprite_rect.has_point(mouse_pos):
+				if not collider_rect.has_point(mouse_pos):
 					return
 				_start_drag()
 			else:

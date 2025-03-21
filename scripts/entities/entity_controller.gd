@@ -7,10 +7,13 @@ var _current_state = "idle"
 var _entity_data: Dictionary
 var _animations: Dictionary
 var _tile_size = 8  # Size of a tile in pixels
+var _collider: CollisionShape2D
+var sprite_scale_factor : float = 1.0
 
 func _ready():
 	_load_entity_data()
 	_setup_sprite()
+	_setup_collider()
 	# Add self to camera targeter's list of targets	
 	var camera_targeter = get_node("/root/grid_movement_sample/Camera2D/CameraTargeter")
 	if camera_targeter:
@@ -62,10 +65,33 @@ func _setup_sprite():
 	add_child(_sprite)
 	
 	# Scale the sprite to fit within a tile	
-	var scale_factor = _tile_size/float(max(widest_frame, tallest_frame))
-	_sprite.scale = Vector2(scale_factor, scale_factor)
+	self.sprite_scale_factor = _tile_size/float(max(widest_frame, tallest_frame))
+	_sprite.scale = Vector2(self.sprite_scale_factor, self.sprite_scale_factor)
 	
 	_sprite.play("idle")
+
+func _setup_collider():
+	# Create a collision shape
+	_collider = CollisionShape2D.new()
+	add_child(_collider)
+	
+	# Calculate the largest frame size across all animations
+	var largest_width = 0
+	var largest_height = 0
+	
+	for state in _animations:
+		var frame_count = _sprite.sprite_frames.get_frame_count(state)
+		for i in range(frame_count):
+			var frame = _sprite.sprite_frames.get_frame_texture(state, i)
+			if frame:
+				largest_width = max(largest_width, frame.get_width())
+				largest_height = max(largest_height, frame.get_height())
+	
+	# Create a rectangle shape based on the largest frame size
+	var shape = RectangleShape2D.new()
+	var scale_factor = self.sprite_scale_factor
+	shape.size = Vector2(largest_width * scale_factor, largest_height * scale_factor)
+	_collider.shape = shape
 
 func set_state(new_state: String):
 	if new_state != _current_state and _animations.has(new_state):
