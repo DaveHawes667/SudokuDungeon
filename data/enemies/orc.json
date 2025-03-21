@@ -8,10 +8,8 @@
     "abilities": ["basic_attack"],
     "sprite_folder": "orc1",
     "animations": {
-        "idle": "Orc1_idle/orc1_idle_full",
-        "attack": "Orc1_attack/orc1_attack_full",
-        "hurt": "Orc1_hurt/orc1_hurt_full",
-        "death": "Orc1_death/orc1_death_full",
-        "walk_attack": "Orc1_walk_attack/orc1_walk_attack_full"
+        "idle": "Idle",
+        "attack": "Dying",        
+        "death": "Attacking"
     }
 } 

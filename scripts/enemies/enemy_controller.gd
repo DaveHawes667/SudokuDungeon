@@ -28,35 +28,36 @@ func _setup_sprite():
 	_sprite = AnimatedSprite2D.new()
 	_sprite.sprite_frames = SpriteFrames.new()
 	#_sprite.sprite_frames.animation_speed = animation_speed
-	
+	var widest_frame = 0.0
+	var tallest_frame = 0.0
 	# Load all animations from the enemy data
 	for state in _animations:
 		var sprite_folder = _enemy_data.get("sprite_folder", "")
-		var texture_path = "res://sprites/enemies/" + sprite_folder + "/" + _animations[state] + ".png"
-		var texture = load(texture_path)
-		if texture:			
-			_sprite.sprite_frames.add_animation(state)
-			var frame_width = 64
-			var frame_height = 64
-			# Calculate number of columns and rows (assumes the texture dimensions are multiples of the frame size)
-			var columns = texture.get_width() / frame_width
-			var rows = texture.get_height() / frame_height
-
-			# Loop through the grid and create an AtlasTexture for each frame
-			for y in range(rows):
-				for x in range(columns):
-					var region = Rect2(x * frame_width, y * frame_height, frame_width, frame_height)
-					var atlas = AtlasTexture.new()
-					atlas.atlas = texture
-					atlas.region = region
-					_sprite.sprite_frames.add_frame(state, atlas)
-		else:
-			push_error("Failed to load texture: " + texture_path)
+		# Get all textures in the sprite folder		
+		var dir = DirAccess.open("res://sprites/enemies/" + sprite_folder + "/" + state)
+		var textures = []
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if file_name.ends_with(".png"):
+					textures.append(file_name)
+				file_name = dir.get_next()
+			dir.list_dir_end()
+		_sprite.sprite_frames.add_animation(state)
+		for textureFileName in textures:
+			var texture = load("res://sprites/enemies/" + sprite_folder + "/" + state + "/" + textureFileName);
+			if texture:
+				widest_frame = max(widest_frame, texture.get_width())
+				tallest_frame = max(tallest_frame, texture.get_height())
+				_sprite.sprite_frames.add_frame(state, texture)
+			else:
+				push_error("Failed to load texture: " + textureFileName)
 	
 	add_child(_sprite)
 	
-	# Scale the sprite to fit within a tile
-	var scale_factor = _tile_size / 64.0  # 64 is the frame size
+	# Scale the sprite to fit within a tile	
+	var scale_factor = _tile_size/float(max(widest_frame, tallest_frame))
 	_sprite.scale = Vector2(scale_factor, scale_factor)
 	
 	_sprite.play("idle")
