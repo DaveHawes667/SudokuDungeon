@@ -5,6 +5,12 @@ var _is_placed = false
 var _original_position: Vector2
 var _tilemap: TileMap
 
+func _snapToTile(globalPos: Vector2):
+	var local_pos = _tilemap.to_local(globalPos)
+	var map_pos = _tilemap.local_to_map(local_pos)
+	local_pos = _tilemap.map_to_local(map_pos)
+	return _tilemap.to_global(local_pos)	
+
 func _ready():
 	super._ready()
 	_tilemap = get_node("/root/grid_movement_sample/TileMap")
@@ -17,6 +23,13 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
+				# Get mouse position and check if it's over the hero sprite
+				var mouse_pos = get_global_mouse_position()
+				var sprite_rect = Rect2(_sprite.global_position - (_sprite.scale * Vector2(_tile_size/2.0, _tile_size/2.0)), 
+									  _sprite.scale * Vector2(_tile_size, _tile_size))
+				
+				if not sprite_rect.has_point(mouse_pos):
+					return
 				_start_drag()
 			else:
 				_end_drag()
@@ -50,7 +63,7 @@ func _end_drag():
 	
 	if is_valid_entry:
 		# Snap to grid position
-		var world_pos = _tilemap.map_to_world(map_pos)
+		var world_pos = _snapToTile(map_pos)
 		position = world_pos
 		_is_placed = true
 	else:
