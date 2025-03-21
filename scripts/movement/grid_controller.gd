@@ -2,6 +2,7 @@ class_name GridController extends Area2D
 
 @export var tilemap : TileMap
 @export var move_time = 0.2
+@export var episode_id: String = "episode1"  # Default to first episode
 @export var path_color = Color(1, 1, 0, 0.5)  # Yellow with transparency
 
 @onready var _ray : RayCast2D = ScriptUtilities.find_child(self, "RayCast2D")
@@ -11,21 +12,27 @@ var _is_moving = false
 var _path_points = []
 var _line2d: Line2D
 var _is_drawing = false
+var _episode_data: Dictionary
 
-
+func _ready():	
+	# Load episode data
+	_episode_data = DataManager.get_episode(episode_id)
+	if _episode_data.is_empty():
+		push_error("Failed to load episode data for: " + episode_id)
+		return
+		
+	# Create Line2D for path visualization
+	_line2d = Line2D.new()
+	_line2d.default_color = path_color
+	_line2d.width = 1
+	tilemap.add_child(_line2d)
+	
 
 func _snapToTile(globalPos: Vector2):
 	var local_pos = tilemap.to_local(globalPos)
 	var map_pos = tilemap.local_to_map(local_pos)
 	local_pos = tilemap.map_to_local(map_pos)
 	return tilemap.to_global(local_pos)	
-
-func _ready():	
-	# Create Line2D for path visualization
-	_line2d = Line2D.new()
-	_line2d.default_color = path_color
-	_line2d.width = 1
-	tilemap.add_child(_line2d)
 
 func _input(event):
 	if event is InputEventMouseButton:

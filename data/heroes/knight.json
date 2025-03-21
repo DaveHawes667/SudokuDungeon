@@ -1,0 +1,13 @@
+{
+    "id": "knight",
+    "name": "Knight",
+    "health": 5,
+    "attack": 2,
+    "defense": 1,
+    "movement_range": 1,
+    "abilities": [
+        "basic_attack",
+        "shield_block"
+    ],
+    "sprite": "knight.png"
+} 

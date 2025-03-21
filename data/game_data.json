@@ -1,0 +1,11 @@
+{
+    "episodes": [
+        "episodes/episode1.json"
+    ],
+    "enemies": [
+        "enemies/goblin.json"
+    ],
+    "heroes": [
+        "heroes/knight.json"
+    ]
+} 

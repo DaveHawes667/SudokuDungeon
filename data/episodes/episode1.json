@@ -1,0 +1,17 @@
+{
+    "id": "episode1",
+    "name": "The Beginning",
+    "description": "Your journey begins here",
+    "grid_size": [9, 9],
+    "starting_position": [1, 1],
+    "enemies": [
+        {
+            "type": "goblin",
+            "position": [3, 3]
+        }
+    ],
+    "objectives": [
+        "Defeat the goblin",
+        "Reach the exit"
+    ]
+} 

@@ -1,0 +1,12 @@
+{
+    "id": "goblin",
+    "name": "Goblin",
+    "health": 3,
+    "attack": 1,
+    "defense": 0,
+    "movement_range": 1,
+    "abilities": [
+        "basic_attack"
+    ],
+    "sprite": "goblin.png"
+} 
