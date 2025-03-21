@@ -8,6 +8,10 @@
         {
             "id": "orc",
             "position": [3, 3]
+        },
+		{
+            "id": "rock",
+            "position": [2, 2]
         }
     ],
     "objectives": [

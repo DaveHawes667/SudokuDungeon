@@ -4,7 +4,8 @@
     ],
     "enemies": [
         "enemies/goblin.json",
-		"enemies/orc.json"
+		"enemies/orc.json",
+		"enemies/rock.json"
     ],
     "heroes": [
         "heroes/knight.json"
