@@ -6,7 +6,7 @@
     "starting_position": [1, 1],
     "enemies": [
         {
-            "type": "goblin",
+            "id": "orc",
             "position": [3, 3]
         }
     ],
