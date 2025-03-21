@@ -134,6 +134,12 @@ func _follow_path():
 		var start_pos = _path_points[i-1]
 		var end_pos = _path_points[i]
 		var direction = (end_pos - start_pos).normalized()
+
+		# Flip sprite based on movement direction
+		if direction.x < 0:  # Moving left
+			_sprite.flip_h = true
+		elif direction.x > 0:  # Moving right
+			_sprite.flip_h = false
 		
 		# Check if movement is valid
 		_ray.target_position = direction * _tile_size
