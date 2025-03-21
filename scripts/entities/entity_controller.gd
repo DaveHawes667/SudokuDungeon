@@ -11,6 +11,12 @@ var _tile_size = 8  # Size of a tile in pixels
 func _ready():
 	_load_entity_data()
 	_setup_sprite()
+	# Add self to camera targeter's list of targets	
+	var camera_targeter = get_node("/root/grid_movement_sample/Camera2D/CameraTargeter")
+	if camera_targeter:
+		camera_targeter.add_target(self)
+	else:
+		push_error("Could not find CameraTargeter node")
 
 func _load_entity_data():
 	_entity_data = DataManager.get_entity(entity_id)

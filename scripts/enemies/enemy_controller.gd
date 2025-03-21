@@ -1,9 +1,5 @@
 class_name EnemyController extends EntityController
 
-func _ready():
-	_load_entity_data()
-	_setup_sprite()
-
 
 func _process(delta):
 	# Example of state changes based on movement
