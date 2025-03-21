@@ -34,7 +34,8 @@ func _setup_sprite():
 	for state in _animations:
 		var sprite_folder = _enemy_data.get("sprite_folder", "")
 		# Get all textures in the sprite folder		
-		var dir = DirAccess.open("res://sprites/enemies/" + sprite_folder + "/" + state)
+		var animation_name = _animations[state]
+		var dir = DirAccess.open("res://sprites/enemies/" + sprite_folder + "/" + animation_name)		
 		var textures = []
 		if dir:
 			dir.list_dir_begin()
@@ -46,7 +47,7 @@ func _setup_sprite():
 			dir.list_dir_end()
 		_sprite.sprite_frames.add_animation(state)
 		for textureFileName in textures:
-			var texture = load("res://sprites/enemies/" + sprite_folder + "/" + state + "/" + textureFileName);
+			var texture = load("res://sprites/enemies/" + sprite_folder + "/" + animation_name + "/" + textureFileName);
 			if texture:
 				widest_frame = max(widest_frame, texture.get_width())
 				tallest_frame = max(tallest_frame, texture.get_height())
