@@ -20,16 +20,16 @@ func _spawn_entities():
 	for entity_data in entities:
 		var entity_type = entity_data.get("type", "")
 		var entity_id = entity_data.get("id")
-		var start_position = entity_data.get("position")
+		var start_pos = entity_data.get("position")
 		
-		if entity_id and start_position:
+		if entity_id and start_pos:
 			match entity_type:
 				"enemy":
-					_spawn_entity(_enemy_scene, entity_id, start_position)
+					_spawn_entity(_enemy_scene, entity_id, start_pos)
 				"hero":
-					_spawn_entity(_hero_scene, entity_id, start_position)
+					_spawn_entity(_hero_scene, entity_id, start_pos)
 				"object":
-					_spawn_entity(_object_scene, entity_id, start_position)
+					_spawn_entity(_object_scene, entity_id, start_pos)
 				_:
 					push_error("Unknown entity type: " + entity_type)
 		else:

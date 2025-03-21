@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://bbo7b5vgtetx3"]
+[gd_scene load_steps=12 format=3 uid="uid://bbo7b5vgtetx3"]
 
 [ext_resource type="Texture2D" uid="uid://bs5ru4bg8n3bj" path="res://sprites/tilesets/test-tileset.png" id="1_uxx57"]
 [ext_resource type="Texture2D" uid="uid://ctuyqlhugsiwo" path="res://icon.svg" id="2_cg4w5"]
 [ext_resource type="Script" uid="uid://bwcbi8s46qrhf" path="res://scripts/movement/grid_controller.gd" id="2_tnplj"]
 [ext_resource type="Script" uid="uid://cnw4gf84a84ua" path="res://scripts/camera/camera_targeter.gd" id="4_8jsyy"]
-[ext_resource type="Script" uid="uid://cbql656jkenxv" path="res://scripts/enemies/entity_spawner.gd" id="6_5cx0g"]
 [ext_resource type="Script" uid="uid://cyl5cjk4731wd" path="res://scripts/grid_generator.gd" id="7_gen"]
+[ext_resource type="Script" uid="uid://cslqk7471ao10" path="res://scripts/entities/entity_spawner.gd" id="8_spawner"]
+[ext_resource type="Script" uid="uid://s5sibq3prwkd" path="res://scripts/ui/hero_selection.gd" id="9_hero_sel"]
+[ext_resource type="PackedScene" path="res://scenes/hero.tscn" id="10_hero"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4ng34"]
 texture = ExtResource("1_uxx57")
@@ -69,5 +71,10 @@ max_zoom = 12.0
 targets = Array[NodePath]([NodePath("../../grid_player")])
 
 [node name="EntitySpawner" type="Node2D" parent="." node_paths=PackedStringArray("tilemap")]
-script = ExtResource("6_5cx0g")
+script = ExtResource("8_spawner")
 tilemap = NodePath("../TileMap")
+
+[node name="HeroSelection" type="Node2D" parent="."]
+script = ExtResource("9_hero_sel")
+tilemap = NodePath("../TileMap")
+hero_scene = ExtResource("10_hero")
