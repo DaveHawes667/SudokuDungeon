@@ -22,10 +22,6 @@ func _ready():
 	hp_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER	
 
 	# Position label on top of heart
-
-	#hp_label.custom_minimum_size = _collider.shape.size
-	#hp_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	#hp_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	var heart_height = heart_sprite.texture.get_height()
 	hp_label.position = Vector2(-_collider.shape.size.x/2.0, -heart_height/2.0)
 	heart_sprite.add_child(hp_label)
