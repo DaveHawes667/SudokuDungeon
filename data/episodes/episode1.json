@@ -1,21 +1,23 @@
 {
-    "id": "episode1",
-    "name": "The Beginning",
-    "description": "Your journey begins here",
-    "grid_size": [9, 9],
-    "starting_position": [1, 1],
-    "enemies": [
-        {
-            "id": "orc",
-            "position": [3, 3]
-        },
+	"id": "episode1",
+	"name": "The Beginning",
+	"description": "Your journey begins here",
+	"grid_size": [9, 9],
+	"starting_position": [1, 1],
+	"entities": [
 		{
-            "id": "rock",
-            "position": [2, 2]
-        }
-    ],
-    "objectives": [
-        "Defeat the goblin",
-        "Reach the exit"
-    ]
+			"id": "orc",
+			"position": [3, 3],
+			"type": "enemy"
+		},
+		{
+			"id": "rock",
+			"position": [2, 2],
+			"type": "enemy"
+		}
+	],
+	"objectives": [
+		"Defeat the goblin",
+		"Reach the exit"
+	]
 } 

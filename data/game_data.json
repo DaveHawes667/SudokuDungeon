@@ -2,12 +2,10 @@
     "episodes": [
         "episodes/episode1.json"
     ],
-    "enemies": [
+    "entities": [
         "enemies/goblin.json",
 		"enemies/orc.json",
-		"enemies/rock.json"
-    ],
-    "heroes": [
-        "heroes/knight.json"
-    ]
+		"enemies/rock.json",
+		"heroes/knight.json"
+    ]    
 } 

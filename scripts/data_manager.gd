@@ -36,17 +36,9 @@ func _load_json_file(category: String, file_path: String) -> void:
 func get_episode(episode_id: String) -> Dictionary:
 	return _loaded_data.episodes.get(episode_id, {})
 
-func get_enemy(enemy_id: String) -> Dictionary:
-	return _loaded_data.enemies.get(enemy_id, {})
-
-func get_hero(hero_id: String) -> Dictionary:
-	return _loaded_data.heroes.get(hero_id, {})
+func get_entity(entity_id: String) -> Dictionary:
+	return _loaded_data.entities.get(entity_id, {})
 
 func get_all_episodes() -> Dictionary:
 	return _loaded_data.episodes
 
-func get_all_enemies() -> Dictionary:
-	return _loaded_data.enemies
-
-func get_all_heroes() -> Dictionary:
-	return _loaded_data.heroes 
