@@ -5,7 +5,7 @@ class_name HeroSelection extends Node2D
 @export var episode_id: String = "episode1"
 
 var _hero_spacing = 64  # Space between heroes in the selection area
-var _hero_offset = Vector2(10, 10)  # Offset from top-left corner
+var _hero_offset = Vector2(75, 10)  # Offset from top-left corner
 
 func _ready():
 	_spawn_heroes()
