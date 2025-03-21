@@ -1,15 +1,9 @@
 class_name EnemyController extends EntityController
 
-@export var enemy_id: String
-
 func _ready():
 	_load_entity_data()
 	_setup_sprite()
 
-func set_state(new_state: String):
-	if new_state != _current_state and _animations.has(new_state):
-		_current_state = new_state
-		_sprite.play(new_state)
 
 func _process(delta):
 	# Example of state changes based on movement

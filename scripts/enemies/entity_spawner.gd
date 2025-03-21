@@ -22,7 +22,7 @@ func _spawn_entities():
 		var entity_id = entity_data.get("id")
 		var start_position = entity_data.get("position")
 		
-		if entity_id and position:
+		if entity_id and start_position:
 			match entity_type:
 				"enemy":
 					_spawn_entity(_enemy_scene, entity_id, start_position)

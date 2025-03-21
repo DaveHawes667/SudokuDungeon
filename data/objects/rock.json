@@ -1,0 +1,13 @@
+{
+    "id": "rock",
+    "name": "Rock",
+    "health": 1,
+    "attack": 0,
+    "defense": 2,
+    "movement_range": 0,
+    "abilities": [],
+    "sprite_folder": "objects/rock",
+    "animations": {
+        "idle": "Rock_idle/rock_idle_full"
+    }
+} 

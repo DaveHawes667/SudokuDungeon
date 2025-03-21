@@ -41,4 +41,3 @@ func get_entity(entity_id: String) -> Dictionary:
 
 func get_all_episodes() -> Dictionary:
 	return _loaded_data.episodes
-
