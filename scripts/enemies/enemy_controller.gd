@@ -8,6 +8,7 @@ var _sprite: AnimatedSprite2D
 var _current_state = "idle"
 var _enemy_data: Dictionary
 var _animations: Dictionary
+var _tile_size = 8  # Size of a tile in pixels
 
 func _ready():
 	_load_enemy_data()
@@ -53,6 +54,11 @@ func _setup_sprite():
 			push_error("Failed to load texture: " + texture_path)
 	
 	add_child(_sprite)
+	
+	# Scale the sprite to fit within a tile
+	var scale_factor = _tile_size / 64.0  # 64 is the frame size
+	_sprite.scale = Vector2(scale_factor, scale_factor)
+	
 	_sprite.play("idle")
 
 func set_state(new_state: String):
