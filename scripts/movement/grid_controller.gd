@@ -1,6 +1,6 @@
 class_name GridController extends Area2D
 
-@export var tilemap : TileMap
+@export var tilemap : TileMapLayer
 @export var episode_id: String = "episode1"  # Default to first episode
 
 

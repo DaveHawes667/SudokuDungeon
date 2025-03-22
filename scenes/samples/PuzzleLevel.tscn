@@ -29,12 +29,13 @@ sources/0 = SubResource("TileSetAtlasSource_4ng34")
 [node name="PuzzleLevel" type="Node2D"]
 metadata/_edit_horizontal_guides_ = []
 
-[node name="GridGenerator" type="Node" parent="."]
+[node name="GridGenerator" type="Node" parent="." node_paths=PackedStringArray("_tile_map")]
 script = ExtResource("1_4s8dt")
+_tile_map = NodePath("../Layer0")
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="Layer0" type="TileMapLayer" parent="."]
+use_parent_material = true
 tile_set = SubResource("TileSet_qnkj3")
-format = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(64, 36)
@@ -43,12 +44,13 @@ editor_draw_limits = true
 
 [node name="EntitySpawner" type="Node2D" parent="." node_paths=PackedStringArray("tilemap")]
 script = ExtResource("3_cx2to")
-tilemap = NodePath("../TileMap")
+tilemap = NodePath("../Layer0")
 
-[node name="HeroSelection" type="Node2D" parent="."]
+[node name="HeroSelection" type="Node2D" parent="." node_paths=PackedStringArray("tilemap")]
 script = ExtResource("4_nm0d7")
+tilemap = NodePath("../Layer0")
 hero_scene = ExtResource("5_52a52")
 
 [node name="EntryPointIndicator" type="Node2D" parent="." node_paths=PackedStringArray("tilemap")]
 script = ExtResource("6_06bns")
-tilemap = NodePath("../TileMap")
+tilemap = NodePath("../Layer0")

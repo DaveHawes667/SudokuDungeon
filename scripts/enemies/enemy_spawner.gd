@@ -1,7 +1,7 @@
 class_name EntitySpawner extends Node2D
 
 @export var episode_id: String = "episode1"
-@export var tilemap: TileMap
+@export var tilemap: TileMapLayer
 
 var _enemy_scene = preload("res://scenes/enemy.tscn")
 var _hero_scene = preload("res://scenes/hero.tscn")

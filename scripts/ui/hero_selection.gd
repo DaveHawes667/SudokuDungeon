@@ -1,6 +1,6 @@
 class_name HeroSelection extends Node2D
 
-@export var tilemap: TileMap
+@export var tilemap: TileMapLayer
 @export var hero_scene: PackedScene
 @export var episode_id: String = "episode1"
 

@@ -1,11 +1,11 @@
 class_name EnemyController extends EntityController
 
-const HEART_SPRITE_SCALE_FACTOR = 10
+const HEART_SPRITE_SCALE_FACTOR = 0.1
 
 func _ready():
 	super._ready()
 
-	var uiScaleFactor = _sprite_scale_factor*HEART_SPRITE_SCALE_FACTOR
+	var uiScaleFactor = HEART_SPRITE_SCALE_FACTOR
 	# Load and setup heart icon
 	var heart_texture = load("res://sprites/ui/interface_game/heart.png")
 	var heart_sprite = Sprite2D.new()

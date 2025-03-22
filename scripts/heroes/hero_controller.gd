@@ -1,7 +1,7 @@
 class_name HeroController extends EntityController
 
 var _original_position: Vector2
-var _tilemap: TileMap
+var _tilemap: TileMapLayer
 var _path_points = []
 var _line2d: Line2D
 var _is_drawing = false
@@ -28,7 +28,7 @@ func _snapToTile(globalPos: Vector2):
 
 func _ready():
 	super._ready()
-	_tilemap = get_node("/root/PuzzleLevel/TileMap")
+	_tilemap = get_node("/root/PuzzleLevel/Layer0")
 	_original_position = position
 
 	_hero_class = _entity_data.get("class", "knight")
