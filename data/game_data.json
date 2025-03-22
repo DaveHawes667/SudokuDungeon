@@ -3,8 +3,15 @@
         "episodes/episode1.json"
     ],
     "entities": [
-        "enemies/goblin.json",
-		"enemies/orc.json",
+        "enemies/goblin_sneak.json",		
+		"enemies/goblin_raider.json",
+		"enemies/goblin_warlord.json",
+		"enemies/ogre_grunt.json",
+		"enemies/ogre_berserker.json",
+		"enemies/ogre_tyrant.json",
+		"enemies/orc_scout.json",
+		"enemies/orc_warrior.json",
+		"enemies/orc_champion.json",
 		"enemies/rock.json",
 		"heroes/knight.json"
     ]    

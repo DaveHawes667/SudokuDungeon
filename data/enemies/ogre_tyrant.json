@@ -1,0 +1,27 @@
+{
+    "id": "ogre_tyrant",
+    "name": "Ogre Tyrant",
+    "health": 9,
+    "faction": "greenskin",
+    "lore": "The pinnacle of ogre might, tyrants combine brute strength with tactical awareness to dominate the battlefield and instill fear in their enemies.",
+    "special": "None",
+    "sprite_folder": "enemies/ogre3",
+    "animations": {
+        "idle": {
+            "name": "Idle",
+            "loop": true
+        },
+        "attack": {
+            "name": "Attacking",
+            "loop": false
+        },
+        "hurt": {
+            "name": "Hurt",
+            "loop": false
+        },
+        "death": {
+            "name": "Dying",
+            "loop": false
+        }
+    }
+} 

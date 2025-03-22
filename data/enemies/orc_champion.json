@@ -1,0 +1,27 @@
+{
+    "id": "orc_champion",
+    "name": "Orc Champion",
+    "health": 6,
+    "faction": "greenskin",
+    "lore": "The elite of orc society, champions are feared for their strength and battle prowess.",
+    "special": "None",
+    "sprite_folder": "enemies/orc3",
+    "animations": {
+        "idle": {
+            "name": "Idle",
+            "loop": true
+        },
+        "attack": {
+            "name": "Attacking",
+            "loop": false
+        },
+        "hurt": {
+            "name": "Hurt",
+            "loop": false
+        },
+        "death": {
+            "name": "Dying",
+            "loop": false
+        }
+    }
+} 

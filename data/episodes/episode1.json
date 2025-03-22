@@ -26,7 +26,7 @@
 	"entities": [
 		{
 			"type": "enemy",
-			"id": "orc",
+			"id": "goblin_sneak",
 			"position": [
 				1.0,
 				5.0
@@ -34,7 +34,7 @@
 		},
 		{
 			"type": "enemy",
-			"id": "orc",
+			"id": "orc_champion",
 			"position": [
 				1.0,
 				1.0
@@ -42,7 +42,7 @@
 		},
 		{
 			"type": "enemy",
-			"id": "orc",
+			"id": "goblin_raider",
 			"position": [
 				1.0,
 				2.0
@@ -50,7 +50,7 @@
 		},
 		{
 			"type": "enemy",
-			"id": "orc",
+			"id": "orc_warrior",
 			"position": [
 				1.0,
 				3.0
