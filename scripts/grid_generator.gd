@@ -10,6 +10,8 @@ func _ready() -> void:
 	generate_grid()
 
 func generate_grid() -> void:
+	return
+	
 	# Clear existing tiles
 	_tile_map.clear()
 	

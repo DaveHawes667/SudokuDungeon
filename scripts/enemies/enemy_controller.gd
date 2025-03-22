@@ -1,6 +1,6 @@
 class_name EnemyController extends EntityController
 
-const HEART_SPRITE_SCALE_FACTOR = 0.1
+const HEART_SPRITE_SCALE_FACTOR = 1
 
 func _ready():
 	super._ready()
@@ -10,8 +10,8 @@ func _ready():
 	var heart_texture = load("res://sprites/ui/interface_game/heart.png")
 	var heart_sprite = Sprite2D.new()
 	heart_sprite.texture = heart_texture
-	heart_sprite.scale = Vector2(uiScaleFactor, uiScaleFactor)
 	heart_sprite.position = Vector2(0, _colliderShape.shape.size.y/2)
+	heart_sprite.scale = Vector2(uiScaleFactor, uiScaleFactor)	
 	add_child(heart_sprite)
 	
 	

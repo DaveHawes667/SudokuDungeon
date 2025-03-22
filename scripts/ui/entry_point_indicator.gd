@@ -23,7 +23,7 @@ func _show_entry_points():
 	for entry in entry_points:
 		var indicator = ColorRect.new()
 		indicator.color = indicator_color
-		indicator.size = Vector2(8, 8)  # Match tile size
+		indicator.size = Vector2(32, 32)  # Match tile size
 		add_child(indicator)
 		
 		# Convert grid position to world position

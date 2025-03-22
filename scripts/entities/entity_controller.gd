@@ -6,7 +6,7 @@ var _sprite: AnimatedSprite2D
 var _current_state = "idle"
 var _entity_data: Dictionary
 var _animations: Dictionary
-var _tile_size = 8  # Size of a tile in pixels
+var _tile_size = 32  # Size of a tile in pixels
 var _colliderShape: CollisionShape2D
 var _sprite_scale_factor : float = 1.0
 
