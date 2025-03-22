@@ -24,8 +24,8 @@ func _ready():
 	# Position label on top of heart
 	var heart_height = heart_sprite.texture.get_height()
 	hp_label.position = Vector2(-_colliderShape.shape.size.x/2.0, -heart_height/2.0)
-	heart_sprite.add_child(hp_label)
-	
+	heart_sprite.add_child(hp_label)	
+
 
 func _process(delta):
 	# Example of state changes based on movement
@@ -37,15 +37,3 @@ func _process(delta):
 # Getter methods for enemy properties
 func get_health() -> int:
 	return _entity_data.get("health", 0)
-
-func get_attack() -> int:
-	return _entity_data.get("attack", 0)
-
-func get_defense() -> int:
-	return _entity_data.get("defense", 0)
-
-func get_movement_range() -> int:
-	return _entity_data.get("movement_range", 0)
-
-func get_abilities() -> Array:
-	return _entity_data.get("abilities", []) 

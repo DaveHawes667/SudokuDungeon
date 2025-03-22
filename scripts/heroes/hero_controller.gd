@@ -5,10 +5,11 @@ var _tilemap: TileMap
 var _path_points = []
 var _line2d: Line2D
 var _is_drawing = false
+var _encounteredEntities = []
 var path_color = Color(1, 1, 0, 0.5)  # Yellow with transparency
 var move_time = 0.2
 
-enum HeroState {RESERVE, PICKED_UP, PLACED, DRAWING_PATH, MOVING,FINISHED_MOVE}
+enum HeroState {RESERVE, PICKED_UP, PLACED, DRAWING_PATH, MOVING,FINISHED_MOVE,DEFEATED,ATTACKING}
 
 var _hero_state = HeroState.RESERVE
 var _hero_class = "knight"
@@ -163,26 +164,61 @@ func _follow_path():
 			var collidedEntity = collider.get_parent()
 			if collidedEntity is EnemyController:
 				# Combat resolution
-				var enemy = collidedEntity as EnemyController
-
+				var enemy = collidedEntity as EnemyController				
 				match _hero_class:
-					"Knight":
-						_resolveKnightCombat(enemy)
-					
-			break
+					"knight":
+						await _resolveKnightCombat(enemy)
+
+				_encounteredEntities.append(enemy)		
+			else:
+				break
+			
 	
 	_hero_state = HeroState.FINISHED_MOVE
 	_path_points.clear()
 	_line2d.clear_points()
 
+func _lastEncounteredEntity():
+	return _encounteredEntities.back()		
+
+func _lastEncounteredEntityValue():
+	var enemy = _lastEncounteredEntity()
+	if enemy:
+		return enemy.get_health()
+	else:
+		return 0
+
 func _resolveKnightCombat(enemy: EnemyController):
-	pass
+	if enemy.get_health() == 5:
+		await _defeated()
+	else:
+		var lastValue = _lastEncounteredEntityValue()
+		var enemyValue = enemy.get_health()
+		if lastValue == 0:
+			await _defeat(enemy)
+		elif abs(lastValue - enemyValue) > 5:
+			await _defeat(enemy)
+		else:
+			await _defeated()
+			
+
+func _defeated():
+	await super._defeated()
+	_hero_state = HeroState.DEFEATED
+
+func _defeat(enemy: EnemyController):
+	_hero_state = HeroState.ATTACKING
+	set_state("attack")
+	await _sprite.animation_finished
+	await enemy._defeated()
+	_hero_state = HeroState.MOVING
+	#_follow_path()
 
 func _process(delta):
 	# Example of state changes based on movement
 	if _hero_state == HeroState.MOVING:
 		set_state("walk")
-	else:
+	elif _hero_state not in [HeroState.DEFEATED,HeroState.ATTACKING]:
 		set_state("idle") 
 
 	

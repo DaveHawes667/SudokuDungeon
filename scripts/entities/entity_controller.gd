@@ -98,18 +98,12 @@ func set_state(new_state: String):
 		_current_state = new_state
 		_sprite.play(new_state)
 
+func _defeated():
+	set_state("death")
+	await _sprite.animation_finished
+	_sprite.visible = false
+	_colliderShape.disabled = true
+
 # Getter methods for entity properties
 func get_health() -> int:
 	return _entity_data.get("health", 0)
-
-func get_attack() -> int:
-	return _entity_data.get("attack", 0)
-
-func get_defense() -> int:
-	return _entity_data.get("defense", 0)
-
-func get_movement_range() -> int:
-	return _entity_data.get("movement_range", 0)
-
-func get_abilities() -> Array:
-	return _entity_data.get("abilities", []) 
