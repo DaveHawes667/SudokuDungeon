@@ -6,10 +6,25 @@
     "movement_range": 1,    
     "sprite_folder": "heroes/knight",
     "animations": {
-        "idle": "Idle",
-        "walk": "Walking",
-        "attack": "Attacking",
-        "hurt": "Hurt",
-        "death": "Dying"
+        "idle": {
+            "name": "Idle",
+            "loop": true
+        },
+        "walk": {
+            "name": "Walking",
+            "loop": true
+        },
+        "attack": {
+            "name": "Attacking",
+            "loop": false
+        },
+        "hurt": {
+            "name": "Hurt",
+            "loop": false
+        },
+        "death": {
+            "name": "Dying",
+            "loop": false
+        }
     }
 } 

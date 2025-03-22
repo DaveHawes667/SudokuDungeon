@@ -41,7 +41,7 @@ func _setup_sprite():
 	for state in _animations:
 		var sprite_folder = _entity_data.get("sprite_folder", "")
 		# Get all textures in the sprite folder		
-		var animation_name = _animations[state]
+		var animation_name = _animations[state].get("name", "")
 		var dir = DirAccess.open("res://sprites/" + sprite_folder + "/" + animation_name)		
 		var textures = []
 		if dir:
@@ -53,6 +53,7 @@ func _setup_sprite():
 				file_name = dir.get_next()
 			dir.list_dir_end()
 		_sprite.sprite_frames.add_animation(state)
+		_sprite.sprite_frames.set_animation_loop(state, _animations[state].get("loop", true))
 		for textureFileName in textures:
 			var texture = load("res://sprites/" + sprite_folder + "/" + animation_name + "/" + textureFileName);
 			if texture:
@@ -95,7 +96,7 @@ func _setup_collider():
 
 func set_state(new_state: String):
 	if new_state != _current_state and _animations.has(new_state):
-		_current_state = new_state
+		_current_state = new_state		
 		_sprite.play(new_state)
 
 func _defeated():

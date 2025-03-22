@@ -8,6 +8,9 @@
     "abilities": [],
     "sprite_folder": "Objects/rock",
     "animations": {
-        "idle": "Rock_idle"
+        "idle": {
+            "name": "Rock_idle",
+            "loop": true
+        }
     }
 } 
