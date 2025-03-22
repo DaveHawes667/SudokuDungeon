@@ -203,8 +203,8 @@ func _resolveKnightCombat(enemy: EnemyController):
 			
 
 func _defeated():
-	await super._defeated()
 	_hero_state = HeroState.DEFEATED
+	await super._defeated()	
 
 func _defeat(enemy: EnemyController):
 	_hero_state = HeroState.ATTACKING
