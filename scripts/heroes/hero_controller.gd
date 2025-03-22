@@ -159,9 +159,11 @@ func _follow_path():
 		else:
 			# Handle collision with enemy or object
 			var collider = _ray.get_collider()
-			if collider is EnemyController:
+			# Get the parent node which would have the EnemyController script
+			var collidedEntity = collider.get_parent()
+			if collidedEntity is EnemyController:
 				# Combat resolution
-				var enemy = collider as EnemyController
+				var enemy = collidedEntity as EnemyController
 
 				match _hero_class:
 					"Knight":
