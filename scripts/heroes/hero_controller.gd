@@ -190,7 +190,7 @@ func _lastEncounteredEntityValue():
 
 func _resolveKnightCombat(enemy: EnemyController):
 	if enemy.get_health() == 5:
-		await _defeated()
+		await _defeated(enemy)
 	else:
 		var lastValue = _lastEncounteredEntityValue()
 		var enemyValue = enemy.get_health()
@@ -199,18 +199,16 @@ func _resolveKnightCombat(enemy: EnemyController):
 		elif abs(lastValue - enemyValue) > 5:
 			await _defeat(enemy)
 		else:
-			await _defeated()
+			await _defeated(enemy)
 			
 
-func _defeated():
+func _defeated(defeatedBy : EntityController):
 	_hero_state = HeroState.DEFEATED
-	await super._defeated()	
+	await super._defeated(defeatedBy)	
 
 func _defeat(enemy: EnemyController):
-	_hero_state = HeroState.ATTACKING
-	set_state("attack")
-	await _sprite.animation_finished
-	await enemy._defeated()
+	_hero_state = HeroState.ATTACKING	
+	await enemy._defeated(self)
 	_hero_state = HeroState.MOVING
 	#_follow_path()
 

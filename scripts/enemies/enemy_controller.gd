@@ -24,15 +24,7 @@ func _ready():
 	# Position label on top of heart
 	var heart_height = heart_sprite.texture.get_height()
 	hp_label.position = Vector2(-_colliderShape.shape.size.x/2.0, -heart_height/2.0)
-	heart_sprite.add_child(hp_label)	
-
-
-func _process(delta):
-	# Example of state changes based on movement
-	if Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left"):
-		set_state("walk_attack")
-	else:
-		set_state("idle")
+	heart_sprite.add_child(hp_label)
 
 # Getter methods for enemy properties
 func get_health() -> int:

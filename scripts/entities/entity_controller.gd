@@ -107,7 +107,11 @@ func set_state(new_state: String):
 		_current_state = new_state		
 		_sprite.play(new_state)
 
-func _defeated():
+func _defeated(defeatedBy : EntityController):
+	if defeatedBy:
+		defeatedBy.set_state("attack")
+		set_state("hurt");
+		await defeatedBy._sprite.animation_finished
 	set_state("death")
 	await _sprite.animation_finished
 	_sprite.visible = false
