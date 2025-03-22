@@ -54,6 +54,14 @@ func _setup_sprite():
 			dir.list_dir_end()
 		_sprite.sprite_frames.add_animation(state)
 		_sprite.sprite_frames.set_animation_loop(state, _animations[state].get("loop", true))
+		
+		# Sort textures by frame number (last 3 digits)
+		textures.sort_custom(func(a, b):
+			var a_num = a.substr(len(a)-7, 3).to_int() # Get ###.png
+			var b_num = b.substr(len(b)-7, 3).to_int()
+			return a_num < b_num
+		)
+		
 		for textureFileName in textures:
 			var texture = load("res://sprites/" + sprite_folder + "/" + animation_name + "/" + textureFileName);
 			if texture:
