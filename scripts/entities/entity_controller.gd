@@ -7,7 +7,7 @@ var _current_state = "idle"
 var _entity_data: Dictionary
 var _animations: Dictionary
 var _tile_size = 8  # Size of a tile in pixels
-var _collider: CollisionShape2D
+var _colliderShape: CollisionShape2D
 var _sprite_scale_factor : float = 1.0
 
 func _ready():
@@ -71,9 +71,8 @@ func _setup_sprite():
 	_sprite.play("idle")
 
 func _setup_collider():
-	# Create a collision shape
-	_collider = CollisionShape2D.new()
-	add_child(_collider)
+	# Create a collision shape	
+	_colliderShape = ScriptUtilities.find_child(self, "CollisionShape2D");
 	
 	# Calculate the largest frame size across all animations
 	var largest_width = 0
@@ -91,7 +90,8 @@ func _setup_collider():
 	var shape = RectangleShape2D.new()
 	var scale_factor = _sprite_scale_factor
 	shape.size = Vector2(largest_width * scale_factor, largest_height * scale_factor)
-	_collider.shape = shape
+	_colliderShape.shape = shape
+	#_colliderObject.set_collision_mask_value(1, true)
 
 func set_state(new_state: String):
 	if new_state != _current_state and _animations.has(new_state):

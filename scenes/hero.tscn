@@ -1,10 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxif0cye7o1xj"]
+[gd_scene load_steps=3 format=3 uid="uid://bxif0cye7o1xj"]
 
 [ext_resource type="Script" uid="uid://dgjbfaym6nwfa" path="res://scripts/heroes/hero_controller.gd" id="1_hero"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3uyx6"]
+size = Vector2(10, 10)
 
 [node name="Hero" type="Node2D"]
 script = ExtResource("1_hero")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-collision_mask = 24
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="Area2D"]
+collision_mask = 25
 collide_with_areas = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_3uyx6")

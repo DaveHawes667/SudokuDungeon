@@ -11,7 +11,7 @@ func _ready():
 	var heart_sprite = Sprite2D.new()
 	heart_sprite.texture = heart_texture
 	heart_sprite.scale = Vector2(uiScaleFactor, uiScaleFactor)
-	heart_sprite.position = Vector2(0, _collider.shape.size.y/2)
+	heart_sprite.position = Vector2(0, _colliderShape.shape.size.y/2)
 	add_child(heart_sprite)
 	
 	
@@ -23,7 +23,7 @@ func _ready():
 
 	# Position label on top of heart
 	var heart_height = heart_sprite.texture.get_height()
-	hp_label.position = Vector2(-_collider.shape.size.x/2.0, -heart_height/2.0)
+	hp_label.position = Vector2(-_colliderShape.shape.size.x/2.0, -heart_height/2.0)
 	heart_sprite.add_child(hp_label)
 	
 

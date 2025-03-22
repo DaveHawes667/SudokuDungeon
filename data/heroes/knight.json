@@ -1,14 +1,9 @@
 {
     "id": "knight",
     "name": "Knight",
-    "health": 5,
-    "attack": 2,
-    "defense": 1,
-    "movement_range": 1,
-    "abilities": [
-        "basic_attack",
-        "shield_block"
-    ],
+    "class": "knight",
+    "health": 5,    
+    "movement_range": 1,    
     "sprite_folder": "heroes/knight",
     "animations": {
         "idle": "Idle",

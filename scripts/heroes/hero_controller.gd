@@ -11,6 +11,7 @@ var move_time = 0.2
 enum HeroState {RESERVE, PICKED_UP, PLACED, DRAWING_PATH, MOVING,FINISHED_MOVE}
 
 var _hero_state = HeroState.RESERVE
+var _hero_class = "knight"
 
 @onready var _ray : RayCast2D = ScriptUtilities.find_child(self, "RayCast2D")
 
@@ -29,6 +30,8 @@ func _ready():
 	_tilemap = get_node("/root/grid_movement_sample/TileMap")
 	_original_position = position
 
+	_hero_class = _entity_data.get("class", "knight")
+
 	# Create Line2D for path visualization
 	_line2d = Line2D.new()
 	_line2d.default_color = path_color
@@ -37,7 +40,7 @@ func _ready():
 
 func IsUnderMouse():
 	var mouse_pos = get_global_mouse_position()
-	var collider_shape = _collider.shape as RectangleShape2D
+	var collider_shape = _colliderShape.shape as RectangleShape2D
 	var collider_rect = Rect2(
 		global_position - collider_shape.size/2,
 		collider_shape.size
@@ -142,7 +145,7 @@ func _follow_path():
 			_sprite.flip_h = false
 		
 		# Check if movement is valid
-		_ray.target_position = direction * _tile_size
+		_ray.target_position = end_pos-start_pos
 		_ray.force_raycast_update()
 		
 		if !_ray.is_colliding():
@@ -154,12 +157,24 @@ func _follow_path():
 			).set_trans(Tween.TRANS_LINEAR)
 			await tween.finished
 		else:
-			# Stop if we hit something
+			# Handle collision with enemy or object
+			var collider = _ray.get_collider()
+			if collider is EnemyController:
+				# Combat resolution
+				var enemy = collider as EnemyController
+
+				match _hero_class:
+					"Knight":
+						_resolveKnightCombat(enemy)
+					
 			break
 	
 	_hero_state = HeroState.FINISHED_MOVE
 	_path_points.clear()
 	_line2d.clear_points()
+
+func _resolveKnightCombat(enemy: EnemyController):
+	pass
 
 func _process(delta):
 	# Example of state changes based on movement
