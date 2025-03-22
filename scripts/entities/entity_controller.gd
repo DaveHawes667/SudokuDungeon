@@ -112,6 +112,7 @@ func _defeated(defeatedBy : EntityController):
 		defeatedBy.set_state("attack")
 		set_state("hurt");
 		await defeatedBy._sprite.animation_finished
+		defeatedBy.set_state("idle")
 	set_state("death")
 	await _sprite.animation_finished
 	_sprite.visible = false

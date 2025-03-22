@@ -28,7 +28,7 @@ func _snapToTile(globalPos: Vector2):
 
 func _ready():
 	super._ready()
-	_tilemap = get_node("/root/grid_movement_sample/TileMap")
+	_tilemap = get_node("/root/PuzzleLevel/TileMap")
 	_original_position = position
 
 	_hero_class = _entity_data.get("class", "knight")
