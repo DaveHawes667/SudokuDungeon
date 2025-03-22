@@ -1,8 +1,6 @@
 extends Node
 
 const GRID_SIZE = 9
-const WALL_TILE_ID = 2  # This corresponds to the wall tile in the tileset (2:0/0)
-const FLOOR_TILE_ID = 0  # This corresponds to the floor tile in the tileset (0:0/0)
 
 @export var _tile_map: TileMapLayer
 
@@ -10,17 +8,24 @@ func _ready() -> void:
 	generate_grid()
 
 func generate_grid() -> void:
-	return
+	# Create grid cells with lines
+	var line_color = Color(0.5, 0.5, 0.5, 0.3) # Semi-transparent gray
+	var cell_size = 32 # Tile size in pixels
 	
-	# Clear existing tiles
-	_tile_map.clear()
+	# Create horizontal lines
+	for y in range(GRID_SIZE + 1):
+		var line = Line2D.new()
+		line.default_color = line_color
+		line.width = 1
+		line.add_point(Vector2(0, y * cell_size))
+		line.add_point(Vector2(GRID_SIZE * cell_size, y * cell_size))
+		add_child(line)
 	
-	# Generate the 9x9 grid
-	for x in range(GRID_SIZE):
-		for y in range(GRID_SIZE):
-			# Place walls around the perimeter
-			if x == 0 or x == GRID_SIZE - 1 or y == 0 or y == GRID_SIZE - 1:
-				_tile_map.set_cell(Vector2i(x, y), WALL_TILE_ID	)
-			else:
-				# Place floor tiles in the interior
-				_tile_map.set_cell(Vector2i(x, y), FLOOR_TILE_ID) 
+	# Create vertical lines  
+	for x in range(GRID_SIZE + 1):
+		var line = Line2D.new()
+		line.default_color = line_color
+		line.width = 1
+		line.add_point(Vector2(x * cell_size, 0))
+		line.add_point(Vector2(x * cell_size, GRID_SIZE * cell_size))
+		add_child(line)

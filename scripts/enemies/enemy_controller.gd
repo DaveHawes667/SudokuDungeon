@@ -1,6 +1,6 @@
 class_name EnemyController extends EntityController
 
-const HEART_SPRITE_SCALE_FACTOR = 1
+const HEART_SPRITE_SCALE_FACTOR = 0.25
 
 func _ready():
 	super._ready()
@@ -9,8 +9,20 @@ func _ready():
 	# Load and setup heart icon
 	var heart_texture = load("res://sprites/ui/interface_game/heart.png")
 	var heart_sprite = Sprite2D.new()
-	heart_sprite.texture = heart_texture
-	heart_sprite.position = Vector2(0, _colliderShape.shape.size.y/2)
+	heart_sprite.texture = heart_texture	
+	
+
+	# Get tile position
+	var tilemap = get_node("/root/PuzzleLevel/Layer0")
+
+	var local_pos = tilemap.to_local(global_position)
+	var map_pos = tilemap.local_to_map(local_pos)
+	local_pos = tilemap.map_to_local(map_pos)
+	local_pos.x -= 16;
+	local_pos.y -= 16;
+	var tile_top_left = tilemap.to_global(local_pos)	
+	# Position heart at top left of tile
+	heart_sprite.global_position = tile_top_left
 	heart_sprite.scale = Vector2(uiScaleFactor, uiScaleFactor)	
 	add_child(heart_sprite)
 	
